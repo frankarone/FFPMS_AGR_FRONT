@@ -1,0 +1,123 @@
+.orden-contenedor { 
+    padding: 30px; 
+}
+
+.orden-titulo {
+  text-align: center;
+  border-bottom: 4px solid #2196f3;
+  display: inline-block;
+  margin: 0 auto 20px;
+}
+
+.orden-controles {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.orden-controles input {
+    flex: 1;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.orden-controles select {
+    padding: 8px;
+    font-size: 15px;
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla th,
+.tabla td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla th {
+    background: #dff0d8;
+}
+
+.tabla tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.badge-con {
+    background: #4caf50;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.badge-sin {
+    background: #e53935;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.btn-volver {
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    background: #2e7d32;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.orden-cabecera {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.orden-controles {
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.orden-controles .fecha {
+    font-size: 14px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.orden-controles .fecha input {
+    padding: 6px;
+}
+
+.orden-controles button {
+  padding: 10px 20px;
+  font-size: 15px;
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.tabla-scroll button {
+  display: block;
+  margin: 4px auto;
+  padding: 4px 14px;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+

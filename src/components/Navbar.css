@@ -1,0 +1,87 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: #dff0d8;
+    border-bottom: 1px solid #cfcfcf;
+    padding: 0 12px;
+}
+
+.navbar-izq{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 100%;
+}
+
+.navbar-marca{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 0 12px;
+    background: #ffffff;
+    color: #444;
+}
+
+.navbar-logo{
+    height: 36px;
+    width: auto;
+}
+
+.navbar-titulo{
+    font-size: 22px;
+    font-weight: bold;
+    color: #555;
+}
+
+.navbar-rol{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #6b6b6b;
+    font-size: 15px;
+}
+
+.navbar-usuario{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #333;
+    font-size: 15px;
+}
+
+.navbar-icono{
+    font-size: 18px;
+}
+
+.navbar-caret{
+    font-size: 12px;
+    color: #666;
+}
+
+.navbar-der{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.navbar-logout:hover { background: #c62828; }

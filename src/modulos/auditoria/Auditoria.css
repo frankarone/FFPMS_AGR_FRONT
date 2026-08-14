@@ -1,0 +1,21 @@
+.auditoria { padding: 30px; }
+.auditoria-titulo {
+  text-align: center;
+  border-bottom: 4px solid #2196f3;
+  display: inline-block;
+  margin: 0 auto 20px;
+}
+.auditoria-error { color: red; }
+.tabla-scroll { overflow-x: auto; }
+.tabla-auditoria {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tabla-auditoria th, .tabla-auditoria td {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  text-align: left;
+}
+.tabla-auditoria th { background: #dff0d8; }
+.tabla-auditoria tr:nth-child(even) { background: #f9f9f9; }
