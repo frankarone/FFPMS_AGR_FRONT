@@ -1,0 +1,366 @@
+.registro-contenedor {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.registro-titulo {
+    text-align: center;
+    color: #1565c0;
+    margin-bottom: 20px;
+}
+
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.registro-bloque {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 14px 18px;
+}
+
+.registro-bloque legend {
+    font-weight: bold;
+    color: #2e7d32;
+    padding: 0 8px;
+}
+
+.registro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.registro-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.registro-grid input,
+.registro-grid select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.registro-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.registro-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.registro-af {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.af-con {
+    background: #4caf50;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.af-sin {
+    background: #e53935;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.registro-error {
+    color: #c62828;
+    background: #ffebee;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.registro-ok {
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.registro-nota {
+    font-size: 12px;
+    color: #777;
+    margin: 8px 0 0;
+}
+
+.registro-textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.registro-botones {
+    display: flex;
+    gap: 12px;
+}
+
+.registro-boton {
+    padding: 10px 26px;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.registro-boton:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.registro-cancelar {
+    padding: 10px 22px;
+    background: #757575;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.registro-subtitulo {
+    margin: 28px 0 12px;
+    color: #1565c0;
+}
+
+.registro-vacio {
+    color: #777;
+    font-style: italic;
+}
+
+/* ----- Filtros (texto + fechas) ----- */
+.registro-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.registro-buscador {
+    flex: 1;
+    min-width: 260px;
+    max-width: 480px;
+    padding: 9px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.registro-filtro-fechas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+}
+
+.registro-filtro-fechas select,
+.registro-filtro-fechas input {
+    padding: 7px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.registro-filtro-fechas label {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+/* ----- Tabla ancha y CENTRADA (full-bleed) ----- */
+.registro-tabla-wrap {
+    margin-left: calc(50% - 48vw);
+    margin-right: calc(50% - 48vw);
+}
+
+.registro-tabla-wrap .tabla {
+    font-size: 13px;
+}
+
+.registro-tabla-wrap .tabla th,
+.registro-tabla-wrap .tabla td {
+    padding: 6px 8px;
+}
+
+/* ----- Acciones de la tabla ----- */
+.registro-acciones {
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.btn-editar {
+    padding: 4px 12px;
+    background: #1565c0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-eliminar {
+    padding: 4px 12px;
+    background: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.registro-filtro-tipo {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.doc-si {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.doc-no {
+    color: #bbb;
+}
+
+.registro-estado-campo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.estado-activo {
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.estado-inactivo {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.btn-cesar {
+    padding: 4px 12px;
+    background: #e67e22;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-reingresar {
+    padding: 4px 12px;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-historial {
+    padding: 4px 12px;
+    background: #607d8b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal-fondo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-caja {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    min-width: 340px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow: auto;
+    position: relative;
+}
+
+.modal-caja h3 {
+    margin: 0 0 16px;
+    color: #1565c0;
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #777;
+}
+
+.modal-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.modal-campo input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-documentos {
+    padding: 4px 12px;
+    background: #8e44ad;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
