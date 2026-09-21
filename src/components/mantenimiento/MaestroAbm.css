@@ -1,0 +1,71 @@
+.maestro-contenedor {
+    padding: 24px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.maestro-titulo {
+    text-align: center;
+    color: #00838f;
+    margin-bottom: 20px;
+}
+
+.maestro-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.maestro-form input {
+    flex: 1;
+    padding: 9px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-guardar {
+    padding: 9px 20px;
+    background: #00838f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    padding: 9px 16px;
+    background: #757575;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.maestro-buscador {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.maestro-error {
+    color: #c62828;
+    background: #ffebee;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.maestro-ok {
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.maestro-acciones {
+    display: flex;
+    gap: 6px;
+}
