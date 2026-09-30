@@ -1,4 +1,5 @@
 import type { Orden } from '../../types/orden';
+import { formatearFecha } from '../../utils/fecha';
 
 interface Props {
   ordenes: Orden[];
@@ -16,7 +17,7 @@ function TablaOrdenes({ ordenes, onVerDetalle }: Props) {
           {ordenes.map((o) => (
             <tr key={o.numero}>
               <td>{o.numero}</td>
-              <td>{new Date(o.fechaEmitido).toLocaleDateString()}</td>
+              <td>{formatearFecha(o.fechaEmitido)}</td>
               <td>{o.proveedor}</td>
               <td>
                 <span className={o.estadoFactura === 'CON FACTURA' ? 'badge-con' : 'badge-sin'}>

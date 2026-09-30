@@ -15,6 +15,7 @@ import NacionalidadesPage from '../pages/mantenimiento/NacionalidadesPage';
 import GradosInstruccionPage from '../pages/mantenimiento/GradosInstruccionPage';
 import ReportePersonal from '../pages/reporte-personal/ReportePersonal';
 import BancosPage from '../pages/mantenimiento/BancosPage';
+import ImportarPersonal from '../pages/importar-personal/ImportarPersonal';
 import type { Usuario } from '../types/auth';
 
 interface Props {
@@ -41,6 +42,7 @@ function AppRoutes({ usuario, onLogout }: Props) {
         <Route path="/grados-instruccion" element={<GradosInstruccionPage />} />
         <Route path="/reporte-personal" element={<ReportePersonal />} />
         <Route path="/bancos" element={<BancosPage />} />
+        <Route path="/importar-personal" element={<ImportarPersonal />} />
       </Route>
     </Routes>
   );

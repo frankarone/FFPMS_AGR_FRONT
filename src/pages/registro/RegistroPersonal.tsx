@@ -16,9 +16,10 @@ const TIPOS_DOC = [
 
 function RegistroPersonal() {
   const {
-    form, setCampo, asignacionFamiliar,
+    form, setCampo, 
     cargos, areas, tipos, nacionalidades, grados,bancos,
     filtradas, busqueda, setBusqueda,
+    personalPagina, pagina, setPagina, totalPaginas, totalRegistros,
     filtroTipo, setFiltroTipo,
     campoFecha, setCampoFecha, fDesde, setFDesde, fHasta, setFHasta,
     editarId, editar, cancelarEdicion, eliminar,
@@ -177,12 +178,33 @@ function RegistroPersonal() {
           <legend>Asignación familiar</legend>
           <div className="registro-grid">
             <label className="registro-check">
-              <input type="checkbox" checked={form.hijos} onChange={(e) => setCampo('hijos', e.target.checked)} />
+              <input
+                type="checkbox"
+                checked={form.hijos}
+                onChange={(e) => {
+                  const on = e.target.checked;
+                  setCampo('hijos', on);
+                  setCampo('asignacionFamiliar', on ? 'DERECHO A.F.' : 'SIN DERECHO');
+                }}
+              />
               ¿Tiene hijos?
             </label>
+
+            <label>Asignación familiar
+              <select
+                value={form.asignacionFamiliar}
+                disabled={!form.hijos}
+                onChange={(e) => setCampo('asignacionFamiliar', e.target.value)}
+              >
+                <option value="DERECHO A.F.">DERECHO A.F.</option>
+                <option value="SIN DERECHO">SIN DERECHO</option>
+              </select>
+            </label>
+
             <div className="registro-af">
-              Asignación familiar:
-              <span className={form.hijos ? 'af-con' : 'af-sin'}>{asignacionFamiliar}</span>
+              <span className={form.asignacionFamiliar === 'DERECHO A.F.' ? 'af-con' : 'af-sin'}>
+                {form.asignacionFamiliar}
+              </span>
             </div>
           </div>
         </fieldset>
@@ -272,13 +294,19 @@ function RegistroPersonal() {
 
       <div className="registro-tabla-wrap">
         <TablaPersonal
-          personal={filtradas}
+          personal={personalPagina}
           onEditar={editar}
           onEliminar={eliminar}
           onCesar={(p) => abrirModal('cesar', p)}
           onReingresar={(p) => abrirModal('reingresar', p)}
-          onHistorial={(p) => abrirModal('historial', p)}          
+          onHistorial={(p) => abrirModal('historial', p)}
         />
+
+        <div className="paginacion">
+          <button onClick={() => setPagina(pagina - 1)} disabled={pagina <= 1}>Anterior</button>
+          <span>Página {pagina} de {totalPaginas} · {totalRegistros} registros</span>
+          <button onClick={() => setPagina(pagina + 1)} disabled={pagina >= totalPaginas}>Siguiente</button>
+        </div>
       </div>
 
       {modalModo && modalPersona && (

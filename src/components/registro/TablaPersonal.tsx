@@ -1,4 +1,5 @@
 import type { PersonalListado } from '../../types/personal';
+import { formatearFecha } from '../../utils/fecha';
 
 interface Props {
   personal: PersonalListado[];
@@ -51,18 +52,18 @@ function TablaPersonal({ personal, onEditar, onEliminar, onCesar, onReingresar, 
               <td>{p.tieneSeguro ? (p.sistemaPension || 'Sí') : 'No'}</td>
               <td>{p.banco || '-'}</td>
               <td>{p.nroCuenta || '-'}</td>
-              <td>{p.fechaNacimiento || '-'}</td>
-              <td>{p.fechaIngreso || '-'}</td>
-              <td>{p.fechaCese || '-'}</td>              
+              <td>{formatearFecha(p.fechaNacimiento)}</td>
+              <td>{formatearFecha(p.fechaIngreso)}</td>
+              <td>{formatearFecha(p.fechaCese)}</td>              
               <td>{p.hijos ? 'Sí' : 'No'}</td>
-              <td><span className={p.hijos ? 'af-con' : 'af-sin'}>{p.asignacionFamiliar}</span></td>
+              <td><span className={p.asignacionFamiliar === 'DERECHO A.F.' ? 'af-con' : 'af-sin'}>{p.asignacionFamiliar}</span></td>
               <td>{siNo(p.cv)}</td>
               <td>{siNo(p.copiaDni)}</td>
               <td>{siNo(p.recibo)}</td>
               <td>{siNo(p.antecedentePolicial)}</td>
               <td>{siNo(p.identMenor)}</td>
               <td>{p.observacion || '-'}</td>
-              <td>{p.fechaRegistro ? new Date(p.fechaRegistro).toLocaleDateString() : '-'}</td>
+              <td>{formatearFecha(p.fechaRegistro)}</td>
               <td className="registro-acciones">
                 <button className="btn-editar" onClick={() => onEditar(p)}>Editar</button>                
                 <button className="btn-cesar" onClick={() => onCesar(p)}>Cesar</button>

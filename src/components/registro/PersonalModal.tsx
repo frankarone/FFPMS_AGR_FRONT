@@ -1,4 +1,5 @@
 import type { PersonalListado, PersonalPeriodo } from '../../types/personal';
+import { formatearFecha } from '../../utils/fecha';
 
 interface Props {
   modo: string;
@@ -52,8 +53,9 @@ function PersonalModal({ modo, persona, historial, fecha, setFecha, motivo, setM
                 <tbody>
                   {historial.map((h) => (
                     <tr key={h.id}>
-                      <td>{h.fechaIngreso}</td>
-                      <td>{h.fechaCese || <span className="af-con">ACTUAL</span>}</td>
+                      <td>{formatearFecha(h.fechaIngreso)}</td>
+                      <td>{h.fechaCese ? formatearFecha(h.fechaCese) : <span className="af-con">ACTUAL</span>}</td>
+                      <td>{formatearFecha(h.fechaCese) || <span className="af-con">ACTUAL</span>}</td>
                       <td>{h.motivoCese || '-'}</td>
                     </tr>
                   ))}
