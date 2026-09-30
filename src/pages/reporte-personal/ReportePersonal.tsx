@@ -1,4 +1,5 @@
 import { useReportePersonal } from '../../hooks/useReportePersonal';
+import { formatearFecha } from '../../utils/fecha';
 import './ReportePersonal.css';
 
 function ReportePersonal() {
@@ -90,9 +91,9 @@ function ReportePersonal() {
                       <td>{p.celular || '-'}</td>
                       <td>{p.sueldo != null ? Number(p.sueldo).toFixed(2) : '-'}</td>
                       <td>{p.tieneSeguro ? (p.sistemaPension || 'Sí') : 'No'}</td>
-                      <td>{p.fechaIngreso || '-'}</td>
-                      <td>{p.fechaCese || '-'}</td>
-                      <td>{p.fechaRegistro ? new Date(p.fechaRegistro).toLocaleDateString() : '-'}</td>
+                      <td>{formatearFecha(p.fechaIngreso)}</td>
+                      <td>{formatearFecha(p.fechaCese)}</td>
+                      <td>{formatearFecha(p.fechaRegistro)}</td>
                       <td><span className={p.activo ? 'rep-activo' : 'rep-inactivo'}>{p.activo ? 'ACTIVO' : 'INACTIVO'}</span></td>
                     </tr>
                   ))}

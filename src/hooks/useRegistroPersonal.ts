@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  listarCargos, listarAreas, listarTiposPersonal, listarNacionalidades, listarGradosInstruccion,listarBancos
+  listarCargos, listarAreas, listarTiposPersonal, listarNacionalidades, listarGradosInstruccion, listarBancos
 } from '../services/maestroService';
 import {
   crearPersonal, listarPersonal, actualizarPersonal, eliminarPersonal,
@@ -16,7 +16,7 @@ const FORM_INICIAL: PersonalInput = {
   correoElectronico: '', celular: '', domicilio: '', observacion: '',
   fechaNacimiento: '', fechaIngreso: '', fechaCese: '', activo: true,
   sueldo: null, tieneSeguro: false, sistemaPension: '',
-  bancoId: null, nroCuenta: '',
+  bancoId: null, nroCuenta: '', asignacionFamiliar: 'SIN DERECHO',
 };
 
 function hoyStr() {
@@ -53,6 +53,8 @@ export function useRegistroPersonal() {
   const [error, setError] = useState('');
   const [guardando, setGuardando] = useState(false);
   const [bancos, setBancos] = useState<Maestro[]>([]);
+  const [pagina, setPagina] = useState(1);
+  const porPagina = 15;
   // modal cesar/reingresar/historial
   const [modalModo, setModalModo] = useState('');
   const [modalPersona, setModalPersona] = useState<PersonalListado | null>(null);
@@ -60,9 +62,8 @@ export function useRegistroPersonal() {
   const [modalMotivo, setModalMotivo] = useState('');
   const [historial, setHistorial] = useState<PersonalPeriodo[]>([]);
   const [documentos, setDocumentos] = useState<PersonalDocumento[]>([]);
-
   const cargarLista = () => {
-    listarPersonal().then((d) => { if (Array.isArray(d)) setPersonal(d); });
+  listarPersonal().then((d) => { if (Array.isArray(d)) setPersonal(d); });
   };
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export function useRegistroPersonal() {
     setForm((f) => ({ ...f, [campo]: valor }));
   };
 
-  const asignacionFamiliar = form.hijos ? 'DERECHO A.F.' : 'SIN DERECHO';
+  useEffect(() => { setPagina(1); }, [busqueda, filtroTipo, campoFecha, fDesde, fHasta]);
 
   const filtradas = personal.filter((p) => {
     const t = busqueda.toLowerCase();
@@ -102,6 +103,10 @@ export function useRegistroPersonal() {
     return okTexto && okTipo && okFecha;
   });
 
+  const totalPaginas = Math.max(1, Math.ceil(filtradas.length / porPagina));
+  const paginaSegura = Math.min(pagina, totalPaginas);
+  const personalPagina = filtradas.slice((paginaSegura - 1) * porPagina, paginaSegura * porPagina);
+
   const editar = (p: PersonalListado) => {
     setEditarId(p.id);
     setForm({
@@ -118,9 +123,10 @@ export function useRegistroPersonal() {
       sistemaPension: p.sistemaPension ?? '',
       bancoId: p.bancoId ?? null,
       nroCuenta: p.nroCuenta ?? '',
+      asignacionFamiliar: p.asignacionFamiliar ?? (p.hijos ? 'DERECHO A.F.' : 'SIN DERECHO'),
     });
     setMensaje(''); setError('');
-    cargarDocumentos(p.id);   
+    cargarDocumentos(p.id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -211,8 +217,8 @@ export function useRegistroPersonal() {
   };
 
   return {
-    form, setCampo, asignacionFamiliar,
-    cargos, areas, tipos, nacionalidades, grados,bancos,
+    form, setCampo,
+    cargos, areas, tipos, nacionalidades, grados, bancos,
     filtradas, busqueda, setBusqueda,
     filtroTipo, setFiltroTipo,
     campoFecha, setCampoFecha, fDesde, setFDesde, fHasta, setFHasta,
@@ -223,5 +229,6 @@ export function useRegistroPersonal() {
     // modal
     modalModo, modalPersona, modalFecha, setModalFecha, modalMotivo, setModalMotivo, historial,
     abrirModal, cerrarModal, confirmarAccion,
+    personalPagina, pagina: paginaSegura, setPagina, totalPaginas, totalRegistros: filtradas.length,
   };
 }
