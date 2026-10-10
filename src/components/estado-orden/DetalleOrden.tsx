@@ -1,4 +1,5 @@
 import type { DetalleOrden as DetalleOrdenType } from '../../types/orden';
+import { formatearFecha } from '../../utils/fecha';
 
 interface Props {
   detalle: DetalleOrdenType;
@@ -13,7 +14,7 @@ function DetalleOrden({ detalle, onVolver }: Props) {
       <h2>Orden {o.numero}</h2>
       <div className="orden-cabecera">
         <p><b>Proveedor:</b> {o.proveedor} ({o.ruc})</p>
-        <p><b>Fecha:</b> {new Date(o.fechaEmitido).toLocaleDateString()}</p>
+        <p><b>Fecha:</b> {formatearFecha(o.fechaEmitido)}</p>
         <p><b>Moneda:</b> {o.moneda}</p>
         <p><b>Factura:</b> {detalle.tieneFactura ? 'Con factura' : 'Sin factura'}</p>
         <p><b>Total Neto:</b> {detalle.neto?.toFixed(2)}</p>

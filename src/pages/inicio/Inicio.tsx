@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { FaChartBar, FaQrcode, FaUsers, FaFileInvoiceDollar, FaClipboardList, FaFilePdf, FaClipboardCheck,
-         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap , FaUniversity } from 'react-icons/fa';
+         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap, FaUniversity, FaFileExcel } from 'react-icons/fa';
 import type { Usuario } from '../../types/auth';
 import './Inicio.css';
 
@@ -28,6 +28,7 @@ const modulos: Modulo[] = [
   { nombre: 'REPORTE VALE CONSUMO',    ruta: '/reporte-vale',       grupo: 'reportes', icono: <FaClipboardCheck className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Almacen', 'Gerencia', 'Contabilidad'] },
   { nombre: 'PRODUCTOS MÁS PEDIDOS',   ruta: '/productos-pedidos',  grupo: 'reportes', icono: <FaChartBar className="modulo-icono" />,       roles: ['Admin', 'Sistema', 'Gerencia', 'Contabilidad'] },
   { nombre: 'REPORTE PERSONAL', ruta: '/reporte-personal', grupo: 'reportes', icono: <FaUsers className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos', 'Gerencia'] },
+    { nombre: 'IMPORTAR PERSONAL', ruta: '/importar-personal', grupo: 'reportes', icono: <FaFileExcel className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
 
   // --- AUDITORÍA ---
   { nombre: 'AUDITORÍA', ruta: '/auditoria', grupo: 'auditoria', icono: <FaClipboardList className="modulo-icono" />, roles: ['Admin', 'Sistema', 'AUDITORIA'] },
@@ -39,6 +40,7 @@ const modulos: Modulo[] = [
   { nombre: 'NACIONALIDADES',      ruta: '/nacionalidades',     grupo: 'mantenimiento', icono: <FaFlag className="modulo-icono" />,          roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'GRADO INSTRUCCIÓN',   ruta: '/grados-instruccion', grupo: 'mantenimiento', icono: <FaGraduationCap className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'BANCOS', ruta: '/bancos', grupo: 'mantenimiento', icono: <FaUniversity className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
+
 ];
 
 const grupos = [

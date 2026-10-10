@@ -1,4 +1,5 @@
 import type { Vale } from '../../types/vale';
+import { formatearFecha } from '../../utils/fecha';
 
 interface Props {
   vales: Vale[];
@@ -17,7 +18,7 @@ function TablaReporteVale({ vales, descargando, onDescargar }: Props) {
           {vales.map((v) => (
             <tr key={v.numero}>
               <td>{v.numero}</td>
-              <td>{v.fechaSolicitado ? new Date(v.fechaSolicitado).toLocaleDateString() : ''}</td>
+              <td>{formatearFecha(v.fechaSolicitado)}</td>
               <td>{v.solicitadoPor}</td>
               <td>{v.entregadoPor}</td>
               <td>

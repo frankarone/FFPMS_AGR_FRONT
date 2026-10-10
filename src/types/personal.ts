@@ -33,6 +33,7 @@ export interface PersonalInput {
   sistemaPension: string;
   bancoId: number | null;
   nroCuenta: string;
+  asignacionFamiliar: string;
 }
 
 export interface PersonalListado {
@@ -124,4 +125,10 @@ export interface ReportePersonalFila {
   fechaIngreso: string | null;
   fechaCese: string | null;
   fechaRegistro: string;
+}
+
+export interface ResultadoImport {
+  ok: boolean;
+  insertados: number;
+  errores: { fila: number; motivo: string }[];
 }
