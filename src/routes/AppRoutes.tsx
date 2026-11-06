@@ -16,6 +16,10 @@ import GradosInstruccionPage from '../pages/mantenimiento/GradosInstruccionPage'
 import ReportePersonal from '../pages/reporte-personal/ReportePersonal';
 import BancosPage from '../pages/mantenimiento/BancosPage';
 import ImportarPersonal from '../pages/importar-personal/ImportarPersonal';
+import AsistenciaInicio from '../pages/asistencia/AsistenciaInicio';
+import EnConstruccion from '../pages/asistencia/EnConstruccion';
+import PlantillaProceso from '../pages/asistencia/PlantillaProceso';
+import AsistenciaAgr from '../pages/asistencia/AsistenciaAgr';
 import type { Usuario } from '../types/auth';
 
 interface Props {
@@ -43,6 +47,10 @@ function AppRoutes({ usuario, onLogout }: Props) {
         <Route path="/reporte-personal" element={<ReportePersonal />} />
         <Route path="/bancos" element={<BancosPage />} />
         <Route path="/importar-personal" element={<ImportarPersonal />} />
+        <Route path="/asistencia" element={<AsistenciaInicio />} />
+        <Route path="/asistencia/plantilla" element={<PlantillaProceso />} />
+        <Route path="/asistencia/marcar" element={<AsistenciaAgr />} />
+        <Route path="/asistencia/ver" element={<EnConstruccion titulo="VER ASISTENCIA" />} />
       </Route>
     </Routes>
   );

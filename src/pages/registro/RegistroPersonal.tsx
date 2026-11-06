@@ -18,7 +18,7 @@ function RegistroPersonal() {
   const {
     form, setCampo, 
     cargos, areas, tipos, nacionalidades, grados,bancos,
-    filtradas, busqueda, setBusqueda,
+    busqueda, setBusqueda,
     personalPagina, pagina, setPagina, totalPaginas, totalRegistros,
     filtroTipo, setFiltroTipo,
     campoFecha, setCampoFecha, fDesde, setFDesde, fHasta, setFHasta,

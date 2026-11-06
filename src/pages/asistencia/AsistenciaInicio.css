@@ -1,0 +1,160 @@
+.asis-inicio {
+  padding: 24px;
+  max-width: 1150px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- 3 botones superiores --- */
+.asis-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.asis-boton {
+  min-width: 200px;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+  transition: transform .15s ease;
+}
+
+.asis-boton:hover { transform: translateY(-3px); }
+.asis-boton-plantilla { background: #1b7f1b; }
+.asis-boton-marcar { background: #0d1b7e; }
+.asis-boton-ver { background: #a3b30b; }
+
+/* --- título --- */
+.asis-titulo {
+  text-align: center;
+  color: #1e88e5;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.asis-fecha {
+  color: #555;
+  font-weight: 500;
+}
+
+/* --- tarjetas inclinadas (como la plantilla) --- */
+.asis-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  padding: 18px;
+  border: 1px dashed #ccc;
+}
+
+.asis-tarjeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 22px;
+  border: 2px solid;
+  border-radius: 6px;
+  background: #fff;
+  transform: skewX(-12deg);
+}
+
+.asis-tarjeta > * { transform: skewX(12deg); } /* el contenido queda recto */
+
+.asis-tarjeta-icono { font-size: 30px; display: flex; }
+.asis-tarjeta-texto { display: flex; flex-direction: column; align-items: flex-end; }
+.asis-tarjeta-valor { font-size: 28px; font-weight: 700; line-height: 1; }
+.asis-tarjeta-titulo { font-size: 13px; color: #333; }
+
+/* --- gráficos --- */
+.asis-graficos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.asis-grafico {
+  border: 1px dashed #ccc;
+  padding: 14px;
+  background: #fff;
+}
+
+.asis-grafico h3 { font-size: 15px; margin-bottom: 10px; }
+
+.asis-porcentajes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.asis-vacio { text-align: center; color: #777; padding: 20px 0; }
+.asis-error { text-align: center; color: #c62828; }
+
+/* --- fecha + desplegable de nave --- */
+.asis-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: -8px;
+}
+
+.asis-select-nave {
+  padding: 8px 12px;
+  min-width: 220px;
+  font-family: inherit;
+  font-size: 14px;
+  border: 2px solid #1e88e5;
+  border-radius: 6px;
+  color: #0d1b7e;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.asis-porcentaje-centro {
+  text-align: center;
+  font-weight: 700;
+  color: #00acc1;
+}
+
+/* --- detalle de los últimos 7 días --- */
+.asis-tabla-dias {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.asis-tabla-dias th,
+.asis-tabla-dias td {
+  border: 1px solid #e0e0e0;
+  padding: 4px 6px;
+}
+
+.asis-tabla-dias th {
+  background: #f5f5f5;
+}
+
+.asis-hay-ausentes {
+  color: #e53935;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .asis-botones { gap: 12px; }
+  .asis-boton { min-width: 0; flex: 1 1 100%; }
+  .asis-titulo { font-size: 26px; }
+}

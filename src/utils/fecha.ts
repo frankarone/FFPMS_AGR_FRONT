@@ -15,3 +15,9 @@ export function formatearFecha(valor: string | null | undefined): string {
   const mm = String(dt.getMonth() + 1).padStart(2, '0');
   return `${dd}/${mm}/${dt.getFullYear()}`;
 }
+
+
+// Fecha local en formato yyyy-MM-dd (sin desfase por zona horaria)
+export function fechaISO(d: Date = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}

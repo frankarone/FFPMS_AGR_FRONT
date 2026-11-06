@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { FaChartBar, FaQrcode, FaUsers, FaFileInvoiceDollar, FaClipboardList, FaFilePdf, FaClipboardCheck,
-         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap, FaUniversity, FaFileExcel } from 'react-icons/fa';
+         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap, FaUniversity, FaFileExcel, FaUserCheck } from 'react-icons/fa';
 import type { Usuario } from '../../types/auth';
 import './Inicio.css';
 
@@ -39,7 +39,8 @@ const modulos: Modulo[] = [
   { nombre: 'TIPO DE PERSONAL',    ruta: '/tipos-personal',     grupo: 'mantenimiento', icono: <FaUserTag className="modulo-icono" />,       roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'NACIONALIDADES',      ruta: '/nacionalidades',     grupo: 'mantenimiento', icono: <FaFlag className="modulo-icono" />,          roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'GRADO INSTRUCCIÓN',   ruta: '/grados-instruccion', grupo: 'mantenimiento', icono: <FaGraduationCap className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
-  { nombre: 'BANCOS', ruta: '/bancos', grupo: 'mantenimiento', icono: <FaUniversity className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
+  { nombre: 'BANCOS',              ruta: '/bancos',             grupo: 'mantenimiento', icono: <FaUniversity className="modulo-icono" />,    roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
+  { nombre: 'ASISTENCIA PROCESO',  ruta: '/asistencia',         grupo: 'operaciones',   icono: <FaUserCheck className="modulo-icono" />,     roles: ['Admin', 'Sistema', 'Recursos Humanos', 'Proceso', 'Planeamiento'] },
 
 ];
 

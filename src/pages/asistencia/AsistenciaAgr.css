@@ -1,0 +1,212 @@
+/* --- filas de cada tarjeta: nombre | ✓ | X --- */
+.agr-cuerpo { min-height: 200px; }
+
+.agr-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.agr-tabla td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.agr-nombre { font-size: 14px; }
+
+.agr-celda {
+  width: 54px;
+  text-align: center;
+  border-left: 1px solid #999;
+}
+
+.agr-check,
+.agr-x {
+  width: 38px;
+  height: 28px;
+  border: 2px solid;
+  background: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.agr-check { border-color: #43d317; color: #43d317; }
+.agr-check-activo { background: #43ff17; color: #fff; }
+.agr-x { border-color: #ff0000; color: #ff0000; }
+.agr-x-activo { background: #ff0000; color: #fff; }
+
+.agr-check:disabled,
+.agr-x:disabled { cursor: not-allowed; opacity: .6; }
+
+/* persona que faltó y fue reemplazada */
+.agr-reemplazado { background: #fafafa; }
+.agr-reemplazado .agr-nombre-texto { text-decoration: line-through; color: #888; }
+
+.agr-flecha { color: #1565c0; font-weight: 700; }
+
+.agr-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.agr-tag {
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.agr-tag-servis { background: #6a1b9a; }
+.agr-tag-no-servis { background: #9e9e9e; }
+.agr-tag-reemplazo { background: #1565c0; }
+.agr-tag-ausente { background: #e53935; }
+
+.plan-fila input:disabled,
+.plan-agregar:disabled { opacity: .5; cursor: not-allowed; }
+
+/* --- cuadro (modal) --- */
+.agr-modal-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, .45);
+}
+
+.agr-modal {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.agr-modal h3 { padding-right: 30px; }
+.agr-modal-sub { margin-top: -10px; color: #666; font-size: 13px; }
+
+.agr-modal-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.agr-modal-opciones { display: flex; flex-direction: column; gap: 10px; }
+
+.agr-modal-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.agr-modal-campo select,
+.agr-modal-campo input {
+  padding: 8px;
+  font-family: inherit;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+.agr-modal-buscar { display: flex; gap: 8px; }
+.agr-modal-buscar input { flex: 1; }
+
+.agr-resultados {
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.agr-resultados li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.agr-resultados li:hover { background: #f1f8e9; }
+.agr-resultados li.agr-resultado-elegido { background: #c8e6c9; }
+.agr-resultados small { margin-right: 6px; color: #888; }
+
+.agr-elegido { color: #2e7d32; font-size: 13px; }
+.agr-modal-error { color: #c62828; font-size: 13px; font-weight: 600; }
+
+.agr-modal-acciones { display: flex; justify-content: flex-end; gap: 10px; }
+
+.agr-btn {
+  padding: 10px 18px;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agr-btn-cambiar { background: #0d1b7e; }
+.agr-btn-inasistencia { background: #e53935; }
+.agr-btn-quitar { background: #757575; }
+.agr-btn-volver { background: #9e9e9e; }
+.agr-btn-guardar { background: #1b7f1b; }
+
+/* casilla "Pertenece a SERVIS" en CAMBIAR PERSONAL */
+.agr-check-servis {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px 12px;
+  border: 2px solid #6a1b9a;
+  border-radius: 4px;
+  color: #6a1b9a;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.agr-check-servis input {
+  width: 18px;
+  height: 18px;
+  accent-color: #6a1b9a;
+  cursor: pointer;
+}
+
+/* --- mover de área / lugares libres --- */
+.agr-btn-mover { background: #ef6c00; }
+.agr-tag-movido { background: #ef6c00; }
+
+.agr-ubicacion {
+  color: #ef6c00;
+  font-size: 13px;
+}
+
+.agr-libres {
+  padding: 2px 6px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-size: 11px;
+  font-weight: 700;
+}
