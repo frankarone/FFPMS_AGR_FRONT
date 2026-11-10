@@ -22,6 +22,7 @@ function GraficoPorNave({ datos }: Props) {
               <Legend />
               <Bar dataKey="presentes" name="Presentes" stackId="a" fill="#43a047" />
               <Bar dataKey="ausentes" name="Ausentes" stackId="a" fill="#e53935" />
+              <Bar dataKey="pendientes" name="Sin marcar" stackId="a" fill="#9e9e9e" />
             </BarChart>
           </ResponsiveContainer>
           <ul className="asis-porcentajes">

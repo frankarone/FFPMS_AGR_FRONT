@@ -5,17 +5,19 @@ interface Props {
   presentes: number;
   ausentes: number;
   porcentaje: number;
+  pendientes: number;
 }
 
-function GraficoAsistenciaDia({ titulo, presentes, ausentes, porcentaje }: Props) {
+function GraficoAsistenciaDia({ titulo, presentes, ausentes, pendientes, porcentaje }: Props) {
   const filas = [
     { nombre: 'Presentes', valor: presentes, color: '#43a047' },
     { nombre: 'Ausentes', valor: ausentes, color: '#e53935' },
-  ];
+    { nombre: 'Sin marcar', valor: pendientes, color: '#9e9e9e' },
+  ].filter((f) => f.valor > 0);
   return (
     <div className="asis-grafico">
       <h3>{titulo}</h3>
-      {presentes + ausentes === 0 ? (
+      {presentes + ausentes + pendientes === 0 ? (
         <p className="asis-vacio">Sin registros</p>
       ) : (
         <>

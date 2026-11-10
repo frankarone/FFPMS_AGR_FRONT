@@ -158,3 +158,10 @@
   .asis-boton { min-width: 0; flex: 1 1 100%; }
   .asis-titulo { font-size: 26px; }
 }
+
+.asis-actualizado {
+  margin-top: -12px;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+}

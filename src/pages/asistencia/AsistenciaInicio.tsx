@@ -1,4 +1,4 @@
-import { FaUsers, FaUserCheck, FaUserTimes, FaPercent } from 'react-icons/fa';
+import { FaUsers, FaUserCheck, FaUserTimes, FaPercent, FaUserClock} from 'react-icons/fa';
 import { useDashboardAsistencia } from '../../hooks/useDashboardAsistencia';
 import TarjetaResumen from '../../components/asistencia/TarjetaResumen';
 import GraficoPorNave from '../../components/asistencia/GraficoPorNave';
@@ -10,7 +10,7 @@ import MenuAsistencia from '../../components/asistencia/MenuAsistencia';
 import './AsistenciaInicio.css';
 
 function AsistenciaInicio() {
-  const { fecha, naveId, setNaveId, naves, naveNombre, datos, cargando, error } = useDashboardAsistencia();
+    const { fecha, naveId, setNaveId, naves, naveNombre, datos, cargando, error, actualizado } = useDashboardAsistencia();
 
   return (
     <div className="asis-inicio">
@@ -31,9 +31,16 @@ function AsistenciaInicio() {
           ))}
         </select>
       </div>
-
-      {cargando && <p className="asis-vacio">Cargando...</p>}
-      {error && <p className="asis-error">{error}</p>}
+        
+      {actualizado && (
+        <p className="asis-actualizado">
+          Actualizado {actualizado.toLocaleTimeString()} · se actualiza solo cada 30 segundos
+        </p>
+      )}
+      {cargando && 
+        <p className="asis-vacio">Cargando...</p>}
+      {error && 
+        <p className="asis-error">{error}</p>}
 
       {datos && !cargando && (
         <>
@@ -41,6 +48,7 @@ function AsistenciaInicio() {
             <TarjetaResumen titulo="Personal del día" valor={datos.resumen.total} icono={<FaUsers />} color="#455a64" />
             <TarjetaResumen titulo="Presentes" valor={datos.resumen.presentes} icono={<FaUserCheck />} color="#43a047" />
             <TarjetaResumen titulo="Ausentes" valor={datos.resumen.ausentes} icono={<FaUserTimes />} color="#e53935" />
+            <TarjetaResumen titulo="Sin marcar" valor={datos.resumen.pendientes} icono={<FaUserClock />} color="#757575" />
             <TarjetaResumen titulo="% Asistencia" valor={`${datos.resumen.porcentaje}%`} icono={<FaPercent />} color="#00acc1" />
           </section>
 
@@ -52,6 +60,7 @@ function AsistenciaInicio() {
                 titulo={`Asistencia ${naveNombre} – hoy`}
                 presentes={datos.resumen.presentes}
                 ausentes={datos.resumen.ausentes}
+                pendientes={datos.resumen.pendientes}
                 porcentaje={datos.resumen.porcentaje}
               />
             )}

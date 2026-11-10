@@ -36,6 +36,7 @@ export interface ResumenDia {
   presentes: number;
   ausentes: number;
   porcentaje: number;
+  pendientes: number; // sin marcar
 }
 
 export interface AsistenciaPorGrupo {
@@ -44,6 +45,7 @@ export interface AsistenciaPorGrupo {
   presentes: number;
   ausentes: number;
   porcentaje: number;
+  pendientes: number; // sin marcar
 }
 
 export interface AsistenciaDia {
@@ -51,6 +53,7 @@ export interface AsistenciaDia {
   presentes: number;
   ausentes: number;
   porcentaje: number;
+  pendientes: number; // sin marcar
 }
 
 export interface DashboardAsistencia {
