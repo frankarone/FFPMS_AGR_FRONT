@@ -1,5 +1,6 @@
-import type { PlantillaNave, PersonaAsistencia, AreaProceso, Asignacion, ItemPlantilla } from '../types/asistencia';
-import { PERSONAL_MOCK, AREAS_MOCK, NAVES_MOCK } from './mock/asistenciaMock';
+import type { PlantillaNave, PersonaAsistencia, Asignacion, ItemPlantilla } from '../types/asistencia';
+import { PERSONAL_MOCK } from './mock/asistenciaMock';
+import { nombreNave } from './catalogoProcesoService';
 
 // MODO LOCAL: las plantillas se guardan en el navegador (localStorage).
 // Al conectar el backend se reemplaza por:
@@ -22,10 +23,6 @@ function vacia(naveId: number): PlantillaNave {
   return { naveId, items: [], areasGuardadas: [], actualizado: '' };
 }
 
-export async function listarAreasProceso(): Promise<AreaProceso[]> {
-  return AREAS_MOCK.filter((a) => a.activo);
-}
-
 export async function buscarPersonalPorDni(dni: string): Promise<PersonaAsistencia | null> {
   return PERSONAL_MOCK.find((p) => p.dni === dni.trim()) ?? null;
 }
@@ -45,8 +42,7 @@ export async function buscarAsignacion(personalId: number): Promise<Asignacion |
   for (const p of Object.values(leerTodas())) {
     const item = p.items.find((i) => i.personalId === personalId);
     if (item) {
-      const nave = NAVES_MOCK.find((n) => n.id === p.naveId)?.nombre ?? `NAVE ${p.naveId}`;
-      return { naveId: p.naveId, nave, areaId: item.areaId, area: item.area };
+      return { naveId: p.naveId, nave: nombreNave(p.naveId), areaId: item.areaId, area: item.area };
     }
   }
   return null;

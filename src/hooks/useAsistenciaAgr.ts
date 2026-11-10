@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { listarNavesProceso } from '../services/asistenciaService';
-import { listarAreasProceso } from '../services/plantillaService';
+import { listarNavesProceso, listarAreasProceso } from '../services/catalogoProcesoService';
 import {
   obtenerAsistenciaDia, guardarAsistenciaDia, buscarPersonal, ubicacionHoy,
   moverPersona, reemplazar, deshacerReemplazo, quitarInasistencia, activos, cupo,

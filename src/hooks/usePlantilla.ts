@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { listarNavesProceso } from '../services/asistenciaService';
+import { listarNavesProceso, listarAreasProceso } from '../services/catalogoProcesoService';
 import {
-  listarAreasProceso, buscarPersonalPorDni, obtenerPlantilla,
+  buscarPersonalPorDni, obtenerPlantilla,
   guardarPlantilla, buscarAsignacion, quitarDePlantilla,
 } from '../services/plantillaService';
 import type { NaveProceso, AreaProceso, PersonaAsistencia, PlantillaNave, ItemPlantilla } from '../types/asistencia';

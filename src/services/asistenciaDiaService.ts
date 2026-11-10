@@ -1,7 +1,8 @@
 import type {
   AsistenciaNaveDia, ItemAsistencia, ItemPlantilla, PersonaAsistencia, PersonaBase, UbicacionHoy, EstadoAsistencia,
 } from '../types/asistencia';
-import { PERSONAL_MOCK, NAVES_MOCK, AREAS_MOCK } from './mock/asistenciaMock';
+import { PERSONAL_MOCK } from './mock/asistenciaMock';
+import { nombreNave, nombreArea } from './catalogoProcesoService';
 import { obtenerPlantilla, buscarAsignacion, asignarEnPlantilla, quitarDeTodasLasPlantillas } from './plantillaService';
 
 // MODO LOCAL: la asistencia de cada día y nave se guarda en el navegador (localStorage).
@@ -24,8 +25,6 @@ function escribirTodas(todas: Record<string, AsistenciaNaveDia>) {
 }
 
 const clave = (fecha: string, naveId: number) => `${fecha}|${naveId}`;
-const nombreNave = (id: number) => NAVES_MOCK.find((n) => n.id === id)?.nombre ?? `NAVE ${id}`;
-const nombreArea = (id: number) => AREAS_MOCK.find((a) => a.id === id)?.nombre ?? `ÁREA ${id}`;
 const nombreDe = (p: PersonaBase) => `${p.apellidos} ${p.nombres}`;
 
 function leerDia(fecha: string, naveId: number): AsistenciaNaveDia | null {
