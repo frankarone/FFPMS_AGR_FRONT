@@ -15,6 +15,8 @@ import NacionalidadesPage from '../pages/mantenimiento/NacionalidadesPage';
 import GradosInstruccionPage from '../pages/mantenimiento/GradosInstruccionPage';
 import ReportePersonal from '../pages/reporte-personal/ReportePersonal';
 import BancosPage from '../pages/mantenimiento/BancosPage';
+import NavesProcesoPage from '../pages/mantenimiento/NavesProcesoPage';
+import AreasProcesoPage from '../pages/mantenimiento/AreasProcesoPage';
 import ImportarPersonal from '../pages/importar-personal/ImportarPersonal';
 import AsistenciaInicio from '../pages/asistencia/AsistenciaInicio';
 import EnConstruccion from '../pages/asistencia/EnConstruccion';
@@ -46,6 +48,8 @@ function AppRoutes({ usuario, onLogout }: Props) {
         <Route path="/grados-instruccion" element={<GradosInstruccionPage />} />
         <Route path="/reporte-personal" element={<ReportePersonal />} />
         <Route path="/bancos" element={<BancosPage />} />
+        <Route path="/naves-proceso" element={<NavesProcesoPage />} />
+        <Route path="/areas-proceso" element={<AreasProcesoPage />} />
         <Route path="/importar-personal" element={<ImportarPersonal />} />
         <Route path="/asistencia" element={<AsistenciaInicio />} />
         <Route path="/asistencia/plantilla" element={<PlantillaProceso />} />

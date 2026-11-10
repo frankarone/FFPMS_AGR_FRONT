@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { FaChartBar, FaQrcode, FaUsers, FaFileInvoiceDollar, FaClipboardList, FaFilePdf, FaClipboardCheck,
-         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap, FaUniversity, FaFileExcel, FaUserCheck } from 'react-icons/fa';
+         FaBriefcase, FaBuilding, FaUserTag, FaFlag, FaGraduationCap, FaUniversity, FaFileExcel, FaUserCheck, FaIndustry, FaLayerGroup} from 'react-icons/fa';
 import type { Usuario } from '../../types/auth';
 import './Inicio.css';
 
@@ -40,6 +40,8 @@ const modulos: Modulo[] = [
   { nombre: 'NACIONALIDADES',      ruta: '/nacionalidades',     grupo: 'mantenimiento', icono: <FaFlag className="modulo-icono" />,          roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'GRADO INSTRUCCIÓN',   ruta: '/grados-instruccion', grupo: 'mantenimiento', icono: <FaGraduationCap className="modulo-icono" />, roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
   { nombre: 'BANCOS',              ruta: '/bancos',             grupo: 'mantenimiento', icono: <FaUniversity className="modulo-icono" />,    roles: ['Admin', 'Sistema', 'Recursos Humanos'] },
+  { nombre: 'NAVES DE PROCESO',    ruta: '/naves-proceso',      grupo: 'mantenimiento', icono: <FaIndustry className="modulo-icono" />,      roles: ['Admin', 'Sistema', 'Recursos Humanos', 'Proceso', 'Planeamiento'] },
+  { nombre: 'ÁREAS DE PROCESO',    ruta: '/areas-proceso',      grupo: 'mantenimiento', icono: <FaLayerGroup className="modulo-icono" />,    roles: ['Admin', 'Sistema', 'Recursos Humanos', 'Proceso', 'Planeamiento'] },
   { nombre: 'ASISTENCIA PROCESO',  ruta: '/asistencia',         grupo: 'operaciones',   icono: <FaUserCheck className="modulo-icono" />,     roles: ['Admin', 'Sistema', 'Recursos Humanos', 'Proceso', 'Planeamiento'] },
 
 ];
