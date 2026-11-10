@@ -1,9 +1,8 @@
 import type {
   AsistenciaNaveDia, ItemAsistencia, ItemPlantilla, PersonaAsistencia, PersonaBase, UbicacionHoy, EstadoAsistencia,
 } from '../types/asistencia';
-import { PERSONAL_MOCK } from './mock/asistenciaMock';
 import { nombreNave, nombreArea } from './catalogoProcesoService';
-import { obtenerPlantilla, buscarAsignacion, asignarEnPlantilla, quitarDeTodasLasPlantillas } from './plantillaService';
+import { obtenerPlantilla, buscarAsignacion, asignarEnPlantilla, quitarDeTodasLasPlantillas, buscarPersonalTexto } from './plantillaService';
 
 // MODO LOCAL: la asistencia de cada día y nave se guarda en el navegador (localStorage).
 // Al conectar el backend, TODA esta lógica (sincronizar con la plantilla, cupos,
@@ -107,11 +106,7 @@ export async function guardarAsistenciaDia(a: AsistenciaNaveDia): Promise<void> 
 
 // Busca por DNI exacto (escrito o escaneado) o por parte del nombre
 export async function buscarPersonal(texto: string): Promise<PersonaAsistencia[]> {
-  const t = texto.trim().toUpperCase();
-  if (t.length < 3) return [];
-  return PERSONAL_MOCK
-    .filter((p) => p.dni === t || `${p.apellidos} ${p.nombres}`.includes(t))
-    .slice(0, 10);
+  return buscarPersonalTexto(texto);
 }
 
 // ¿Dónde está esta persona HOY? Primero en la asistencia ya abierta, si no en las plantillas

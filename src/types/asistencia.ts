@@ -76,7 +76,6 @@ export interface PlantillaNave {
   naveId: number;
   items: ItemPlantilla[];
   areasGuardadas: number[]; // áreas confirmadas con GUARDAR (bloqueadas)
-  actualizado: string;
 }
 
 // Dónde está asignada una persona

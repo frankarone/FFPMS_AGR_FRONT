@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { listarNavesProceso, listarAreasProceso } from '../services/catalogoProcesoService';
 import {
-  buscarPersonalPorDni, obtenerPlantilla,
-  guardarPlantilla, buscarAsignacion, quitarDePlantilla,
+  buscarPersonalPorDni, obtenerPlantilla, buscarAsignacion,
+  asignar, quitarDePlantilla, guardarAreaPlantilla, editarAreaPlantilla,
 } from '../services/plantillaService';
 import type { NaveProceso, AreaProceso, PersonaAsistencia, PlantillaNave, ItemPlantilla } from '../types/asistencia';
 import { fechaISO } from '../utils/fecha';
@@ -33,7 +33,9 @@ export function usePlantilla() {
     listarAreasProceso().then(setAreas);
   }, []);
 
-  // Al cambiar de nave, cargar su plantilla
+  const recargar = async (id: number) => setPlantilla(await obtenerPlantilla(id));
+
+  // Al cambiar de nave, cargar su plantilla desde la base de datos
   useEffect(() => {
     setMensaje('');
     setError('');
@@ -41,7 +43,7 @@ export function usePlantilla() {
       setPlantilla(null);
       return;
     }
-    obtenerPlantilla(naveId).then(setPlantilla);
+    recargar(naveId);
   }, [naveId]);
 
   // Buscar a la persona apenas el DNI tenga 8 caracteres o más
@@ -54,15 +56,10 @@ export function usePlantilla() {
     buscarPersonalPorDni(valor).then(setPersona);
   }, [dni]);
 
-  const guardarYRecargar = async (p: PlantillaNave) => {
-    await guardarPlantilla(p);
-    setPlantilla(await obtenerPlantilla(p.naveId));
-  };
-
   const agregar = async () => {
     setMensaje('');
     setError('');
-    if (naveId === null) { setError('Selecciona la nave de proceso'); return; }
+    if (naveId === null || !plantilla) { setError('Selecciona la nave de proceso'); return; }
 
     const p = await buscarPersonalPorDni(dni);
     if (!p) { setError('DNI no registrado en Registro Personal'); return; }
@@ -71,9 +68,7 @@ export function usePlantilla() {
 
     const area = areas.find((a) => a.id === areaId);
     if (!area) { setError('Selecciona el área'); return; }
-
-    const actual = await obtenerPlantilla(naveId);
-    if (actual.areasGuardadas.includes(area.id)) {
+    if (plantilla.areasGuardadas.includes(area.id)) {
       setError(`El área ${area.nombre} está guardada. Pulsa EDITAR en su tarjeta para modificarla.`);
       return;
     }
@@ -85,43 +80,46 @@ export function usePlantilla() {
         setError(`${nombre} ya está en ${naveNombre} – ${area.nombre}`);
         return;
       }
-      const mover = window.confirm(
+      if (!window.confirm(
         `${nombre} ya está asignado en ${asignada.nave} – ${asignada.area}.\n\n¿Moverlo a ${naveNombre} – ${area.nombre}?`,
-      );
-      if (!mover) return;
-      if (asignada.naveId !== naveId) await quitarDePlantilla(asignada.naveId, p.personalId);
+      )) return;
     }
 
-    const nuevo: ItemPlantilla = {
-      personalId: p.personalId, dni: p.dni, nombres: p.nombres, apellidos: p.apellidos,
-      areaId: area.id, area: area.nombre,
-    };
-    const base = await obtenerPlantilla(naveId);
-    await guardarYRecargar({
-      ...base,
-      items: [...base.items.filter((i) => i.personalId !== p.personalId), nuevo],
-    });
+    const r = await asignar(naveId, p.personalId, area.id); // el backend mueve si ya estaba en otra
+    if (!r?.ok) { setError(r?.mensaje ?? 'No se pudo asignar'); return; }
+    await recargar(naveId);
     setMensaje(asignada ? `${nombre} movido a ${naveNombre} – ${area.nombre}` : `${nombre} agregado a ${area.nombre}`);
     setDni(''); // listo para el siguiente DNI
   };
 
   const quitar = async (item: ItemPlantilla) => {
-    if (!plantilla) return;
+    if (naveId === null) return;
     if (!window.confirm(`¿Quitar a ${nombreCompleto(item)} de la plantilla?`)) return;
-    await guardarYRecargar({ ...plantilla, items: plantilla.items.filter((i) => i.personalId !== item.personalId) });
+    setMensaje('');
+    setError('');
+    const r = await quitarDePlantilla(naveId, item.personalId);
+    if (!r?.ok) { setError(r?.mensaje ?? 'No se pudo quitar'); return; }
+    await recargar(naveId);
     setMensaje(`${nombreCompleto(item)} quitado de la plantilla`);
   };
 
   const guardarArea = async (id: number) => {
-    if (!plantilla) return;
-    await guardarYRecargar({ ...plantilla, areasGuardadas: [...new Set([...plantilla.areasGuardadas, id])] });
+    if (naveId === null) return;
+    setMensaje('');
+    setError('');
+    const r = await guardarAreaPlantilla(naveId, id);
+    if (!r?.ok) { setError(r?.mensaje ?? 'No se pudo guardar el área'); return; }
+    await recargar(naveId);
     setMensaje('Área guardada');
   };
 
   const editarArea = async (id: number) => {
-    if (!plantilla) return;
-    await guardarYRecargar({ ...plantilla, areasGuardadas: plantilla.areasGuardadas.filter((a) => a !== id) });
+    if (naveId === null) return;
     setMensaje('');
+    setError('');
+    const r = await editarAreaPlantilla(naveId, id);
+    if (!r?.ok) { setError(r?.mensaje ?? 'No se pudo abrir el área'); return; }
+    await recargar(naveId);
   };
 
   // Una tarjeta por cada área que tiene personal en esta nave

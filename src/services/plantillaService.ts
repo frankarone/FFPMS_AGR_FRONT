@@ -1,77 +1,63 @@
+import { apiGet, apiPost, apiDelete } from './repository/apiClient';
 import type { PlantillaNave, PersonaAsistencia, Asignacion, ItemPlantilla } from '../types/asistencia';
-import { PERSONAL_MOCK } from './mock/asistenciaMock';
-import { nombreNave } from './catalogoProcesoService';
 
-// MODO LOCAL: las plantillas se guardan en el navegador (localStorage).
-// Al conectar el backend se reemplaza por:
-//   GET/PUT /api/plantillas/{naveId}, GET /api/personal/dni/{dni}, GET /api/areas-proceso
-const CLAVE = 'ffpms.asistencia.plantillas';
+// Plantilla de proceso: se guarda en la base de datos (FppmsSistema.dbo.PlantillaProceso)
+type Respuesta = { ok: boolean; mensaje: string };
 
-function leerTodas(): Record<number, PlantillaNave> {
-  try {
-    return JSON.parse(localStorage.getItem(CLAVE) || '{}');
-  } catch {
-    return {};
-  }
+export async function obtenerPlantilla(naveId: number): Promise<PlantillaNave> {
+  const p = await apiGet<PlantillaNave>(`/api/plantillas/${naveId}`);
+  return p ?? { naveId, items: [], areasGuardadas: [] };
 }
 
-function escribirTodas(todas: Record<number, PlantillaNave>) {
-  localStorage.setItem(CLAVE, JSON.stringify(todas));
-}
-
-function vacia(naveId: number): PlantillaNave {
-  return { naveId, items: [], areasGuardadas: [], actualizado: '' };
+// Busca en Registro Personal por DNI exacto o parte del nombre (mínimo 3 caracteres)
+export async function buscarPersonalTexto(texto: string): Promise<PersonaAsistencia[]> {
+  const t = texto.trim();
+  if (t.length < 3) return [];
+  return (await apiGet<PersonaAsistencia[]>(`/api/plantillas/personal?texto=${encodeURIComponent(t)}`)) ?? [];
 }
 
 export async function buscarPersonalPorDni(dni: string): Promise<PersonaAsistencia | null> {
-  return PERSONAL_MOCK.find((p) => p.dni === dni.trim()) ?? null;
-}
-
-export async function obtenerPlantilla(naveId: number): Promise<PlantillaNave> {
-  return leerTodas()[naveId] ?? vacia(naveId);
-}
-
-export async function guardarPlantilla(plantilla: PlantillaNave): Promise<void> {
-  const todas = leerTodas();
-  todas[plantilla.naveId] = { ...plantilla, actualizado: new Date().toISOString() };
-  escribirTodas(todas);
+  const lista = await buscarPersonalTexto(dni);
+  return lista.find((p) => p.dni === dni.trim()) ?? null;
 }
 
 // ¿En qué nave y área está asignada esta persona? (null = en ninguna)
 export async function buscarAsignacion(personalId: number): Promise<Asignacion | null> {
-  for (const p of Object.values(leerTodas())) {
-    const item = p.items.find((i) => i.personalId === personalId);
-    if (item) {
-      return { naveId: p.naveId, nave: nombreNave(p.naveId), areaId: item.areaId, area: item.area };
-    }
+  const l = await apiGet<Asignacion[]>(`/api/plantillas/asignacion/${personalId}`);
+  return l && l.length > 0 ? l[0] : null;
+}
+
+// Asigna o mueve (una persona solo puede estar en una plantilla)
+export async function asignar(naveId: number, personalId: number, areaId: number, desdeAsistencia = false): Promise<Respuesta | null> {
+  const q = desdeAsistencia ? '?desdeAsistencia=true' : '';
+  return apiPost<Respuesta>(`/api/plantillas/${naveId}/items${q}`, { personalId, areaId });
+}
+
+export async function quitarDePlantilla(naveId: number, personalId: number, desdeAsistencia = false): Promise<Respuesta | null> {
+  const q = desdeAsistencia ? '?desdeAsistencia=true' : '';
+  return apiDelete<Respuesta>(`/api/plantillas/${naveId}/items/${personalId}${q}`);
+}
+
+export async function guardarAreaPlantilla(naveId: number, areaId: number): Promise<Respuesta | null> {
+  return apiPost<Respuesta>(`/api/plantillas/${naveId}/areas/${areaId}/guardar`, {});
+}
+
+export async function editarAreaPlantilla(naveId: number, areaId: number): Promise<Respuesta | null> {
+  return apiDelete<Respuesta>(`/api/plantillas/${naveId}/areas/${areaId}/guardar`);
+}
+
+// --- Usadas por ASISTENCIA AGR: actualizan la plantilla aunque el área esté guardada ---
+function avisarSiFalla(r: Respuesta | null) {
+  if (!r?.ok) {
+    window.alert(`La asistencia de hoy se actualizó, pero la PLANTILLA no: ${r?.mensaje ?? 'error de conexión'}`);
   }
-  return null;
 }
 
-export async function quitarDePlantilla(naveId: number, personalId: number): Promise<void> {
-  const p = await obtenerPlantilla(naveId);
-  await guardarPlantilla({ ...p, items: p.items.filter((i) => i.personalId !== personalId) });
-}
-
-
-// Pone a la persona en esa nave/área y la quita de cualquier otra plantilla
 export async function asignarEnPlantilla(naveId: number, item: ItemPlantilla): Promise<void> {
-  const todas = leerTodas();
-  for (const p of Object.values(todas)) {
-    p.items = p.items.filter((i) => i.personalId !== item.personalId);
-  }
-  const destino = todas[naveId] ?? vacia(naveId);
-  destino.items = [...destino.items, item];
-  destino.actualizado = new Date().toISOString();
-  todas[naveId] = destino;
-  escribirTodas(todas);
+  avisarSiFalla(await asignar(naveId, item.personalId, item.areaId, true));
 }
 
-// Quita a la persona de todas las plantillas
 export async function quitarDeTodasLasPlantillas(personalId: number): Promise<void> {
-  const todas = leerTodas();
-  for (const p of Object.values(todas)) {
-    p.items = p.items.filter((i) => i.personalId !== personalId);
-  }
-  escribirTodas(todas);
+  const a = await buscarAsignacion(personalId);
+  if (a) avisarSiFalla(await quitarDePlantilla(a.naveId, personalId, true));
 }
