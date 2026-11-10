@@ -10,7 +10,7 @@ function PlantillaProceso() {
   const {
     naves, areas, naveId, setNaveId,
     dni, setDni, persona, areaId, setAreaId,
-    agregar, quitar, guardarArea, editarArea,
+    agregar, quitar, guardarArea, editarArea, cambiarEstimado,
     tarjetas, totalNave, fechaPlantilla, mensaje, error,
   } = usePlantilla();
 
@@ -82,6 +82,8 @@ function PlantillaProceso() {
                   area={t.area.nombre}
                   items={t.items}
                   guardada={t.guardada}
+                  estimado={t.estimado}
+                  onCambiarEstimado={(total) => cambiarEstimado(t.area.id, total)}
                   onGuardar={() => guardarArea(t.area.id)}
                   onEditar={() => editarArea(t.area.id)}
                   onQuitar={quitar}

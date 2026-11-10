@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiDelete } from './repository/apiClient';
+import { apiGet, apiPost, apiPut, apiDelete } from './repository/apiClient';
 import type { PlantillaNave, PersonaAsistencia, Asignacion, ItemPlantilla } from '../types/asistencia';
 
 // Plantilla de proceso: se guarda en la base de datos (FppmsSistema.dbo.PlantillaProceso)
@@ -6,7 +6,7 @@ type Respuesta = { ok: boolean; mensaje: string };
 
 export async function obtenerPlantilla(naveId: number): Promise<PlantillaNave> {
   const p = await apiGet<PlantillaNave>(`/api/plantillas/${naveId}`);
-  return p ?? { naveId, items: [], areasGuardadas: [] };
+    return p ?? { naveId, items: [], areasGuardadas: [], estimados: {} };
 }
 
 // Busca en Registro Personal por DNI exacto o parte del nombre (mínimo 3 caracteres)
@@ -44,6 +44,10 @@ export async function guardarAreaPlantilla(naveId: number, areaId: number): Prom
 
 export async function editarAreaPlantilla(naveId: number, areaId: number): Promise<Respuesta | null> {
   return apiDelete<Respuesta>(`/api/plantillas/${naveId}/areas/${areaId}/guardar`);
+}
+
+export async function guardarEstimado(naveId: number, areaId: number, totalEstimado: number): Promise<Respuesta | null> {
+  return apiPut<Respuesta>(`/api/plantillas/${naveId}/areas/${areaId}/estimado`, { totalEstimado });
 }
 
 // --- Usadas por ASISTENCIA AGR: actualizan la plantilla aunque el área esté guardada ---

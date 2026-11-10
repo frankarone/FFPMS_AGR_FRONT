@@ -179,3 +179,45 @@
   .plan-cabecera { flex-direction: column; gap: 10px; }
   .plan-principal { position: static; }
 }
+
+/* --- TOTAL ESTIMADO y TOTAL de cada tarjeta --- */
+.plan-estimado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+.plan-estimado label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.plan-estimado input {
+  width: 64px;
+  padding: 4px 6px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid #1565c0;
+  border-radius: 4px;
+}
+
+.plan-estimado input:disabled { background: #eee; border-color: #bbb; }
+
+.plan-estimado-falta {
+  border-color: #e53935 !important;
+  background: #ffebee;
+}
+
+.plan-total-lleno b {
+  background: #ffcdd2;
+  color: #c62828;
+}

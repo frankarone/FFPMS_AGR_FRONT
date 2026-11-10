@@ -91,9 +91,16 @@ export async function obtenerAsistenciaDia(fecha: string, naveId: number): Promi
     }
   }
 
-  // 3) Cupos: lo de la plantilla; no bajan durante el día (si alguien se va, queda el lugar libre)
+  // 3) Cupos: el TOTAL ESTIMADO de la plantilla (si lo cambias, se actualiza al recargar).
+  //    Si un área aún no tiene estimado, se usa lo que había (no baja durante el día).
+  const estimados = plantilla.estimados ?? {};
+  for (const [areaId, total] of Object.entries(estimados)) {
+    r.cupos[Number(areaId)] = total;
+  }
   for (const i of r.items) {
-    r.cupos[i.areaId] = Math.max(r.cupos[i.areaId] ?? 0, activos(r, i.areaId));
+    if (estimados[i.areaId] === undefined) {
+      r.cupos[i.areaId] = Math.max(r.cupos[i.areaId] ?? 0, activos(r, i.areaId));
+    }
   }
 
   escribirDia(r);
