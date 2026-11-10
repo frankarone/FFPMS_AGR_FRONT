@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { listarNavesProceso, listarAreasProceso } from '../services/catalogoProcesoService';
 import {
-  obtenerAsistenciaDia, guardarAsistenciaDia, buscarPersonal, ubicacionHoy,
+  obtenerAsistenciaDia, buscarPersonal, ubicacionHoy,
+  marcarPresente as marcarPresenteApi, marcarInasistencia, guardarAreaAsistencia, editarAreaAsistencia,
   moverPersona, reemplazar, deshacerReemplazo, quitarInasistencia, activos, cupo,
 } from '../services/asistenciaDiaService';
 import type {
@@ -71,21 +72,10 @@ export function useAsistenciaAgr() {
   };
 
   const limpiarAvisos = () => { setMensaje(''); setError(''); };
-
-  const guardar = async (r: AsistenciaNaveDia) => {
-    await guardarAsistenciaDia(r);
-    setRegistro(r);
-  };
-
   const areaBloqueada = (areaId: number) => registro?.areasGuardadas.includes(areaId) ?? false;
   const avisoBloqueada = (area: string) => setError(`El área ${area} está guardada. Pulsa EDITAR para modificarla.`);
   const nombreNave = (id: number | null) => naves.find((n) => n.id === id)?.nombre ?? '';
   const nombreArea = (id: number | null) => areas.find((a) => a.id === id)?.nombre ?? '';
-
-  const actualizarItem = (r: AsistenciaNaveDia, personalId: number, cambios: Partial<ItemAsistencia>): AsistenciaNaveDia => ({
-    ...r,
-    items: r.items.map((i) => (i.personalId === personalId ? { ...i, ...cambios } : i)),
-  });
 
   // ✓ verde
   const marcarPresente = async (item: ItemAsistencia) => {
@@ -97,7 +87,10 @@ export function useAsistenciaAgr() {
       setError(`${item.area} ya está completa (${cupo(registro, item.areaId)}). Su lugar ya fue cubierto.`);
       return;
     }
-    await guardar(actualizarItem(registro, item.personalId, { estado: 'PRESENTE', motivo: null }));
+  
+    const err = await marcarPresenteApi(fecha, registro.naveId, item.personalId);
+    if (err) { setError(err); return; }
+    await recargar();
     setMensaje(`${nombreDe(item)}: PRESENTE`);
   };
 
@@ -171,7 +164,9 @@ export function useAsistenciaAgr() {
   const confirmarInasistencia = async () => {
     if (!registro || !itemModal) return;
     if (!motivo) { setErrorModal('Elige el motivo de inasistencia'); return; }
-    await guardar(actualizarItem(registro, itemModal.personalId, { estado: 'AUSENTE', motivo }));
+    const err = await marcarInasistencia(fecha, registro.naveId, itemModal.personalId, motivo);
+    if (err) { setErrorModal(err); return; }
+    await recargar();
     setMensaje(`${nombreDe(itemModal)}: AUSENTE (${motivo})`);
     cerrarModal();
   };
@@ -261,14 +256,18 @@ export function useAsistenciaAgr() {
     if (!registro) return;
     const pendientes = registro.items.filter((i) => i.areaId === areaId && i.estado === 'PENDIENTE').length;
     if (pendientes > 0) { setError(`Faltan marcar ${pendientes} persona(s) en esta área`); return; }
-    await guardar({ ...registro, areasGuardadas: [...new Set([...registro.areasGuardadas, areaId])] });
+    const err = await guardarAreaAsistencia(fecha, registro.naveId, areaId);
+    if (err) { setError(err); return; }
+    await recargar();
     setMensaje('Asistencia del área guardada');
   };
 
   const editarArea = async (areaId: number) => {
     limpiarAvisos();
     if (!registro) return;
-    await guardar({ ...registro, areasGuardadas: registro.areasGuardadas.filter((a) => a !== areaId) });
+    const err = await editarAreaAsistencia(fecha, registro.naveId, areaId);
+    if (err) { setError(err); return; }
+    await recargar();
   };
 
   // Tarjetas por área; cada reemplazo aparece justo debajo de quien reemplaza

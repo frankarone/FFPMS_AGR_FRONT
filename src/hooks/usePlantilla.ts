@@ -165,7 +165,8 @@ export function usePlantilla() {
       guardada: plantilla?.areasGuardadas.includes(a.id) ?? false,
       estimado: plantilla?.estimados[a.id] ?? null,
     }))
-    .filter((t) => t.items.length > 0);
+    // Se muestra si tiene personas, o un TOTAL ESTIMADO, o está guardada (aunque esté vacía)
+    .filter((t) => t.items.length > 0 || t.estimado !== null || t.guardada);
 
   return {
     naves, areas, naveId, setNaveId,
