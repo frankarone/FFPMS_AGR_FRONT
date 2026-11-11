@@ -1,0 +1,96 @@
+.ver-excel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: none;
+  background: #1b7f1b;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ver-excel:disabled { opacity: .5; cursor: not-allowed; }
+
+.plan-fila input[type="date"] { min-width: 160px; }
+
+/* --- resumen de la nave --- */
+.ver-resumen {
+  padding: 14px 18px;
+  border: 1px dashed #ccc;
+  text-align: center;
+}
+
+.ver-resumen h2 {
+  margin-bottom: 8px;
+  color: #0d1b7e;
+  font-size: 20px;
+}
+
+.ver-totales {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 28px;
+  font-size: 15px;
+}
+
+.ver-totales b { font-size: 18px; margin-left: 4px; }
+.ver-ok { color: #2e7d32; }
+.ver-mal { color: #c62828; }
+
+/* --- una sección por área --- */
+.ver-area { border: 1px solid #d9d9d9; }
+
+.ver-area-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+  padding: 10px 14px;
+  background: #d9d9d9;
+  font-size: 14px;
+}
+
+.ver-area-nombre {
+  margin-right: auto;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ver-sin { padding: 14px; color: #777; }
+
+.ver-scroll { overflow-x: auto; }
+
+.ver-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ver-tabla th {
+  padding: 6px 10px;
+  background: #2e7d32;
+  color: #fff;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ver-tabla td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.ver-estado {
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ver-estado-presente { background: #43a047; }
+.ver-estado-ausente { background: #e53935; }
+.ver-estado-pendiente { background: #9e9e9e; }

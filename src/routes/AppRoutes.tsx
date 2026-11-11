@@ -19,7 +19,7 @@ import NavesProcesoPage from '../pages/mantenimiento/NavesProcesoPage';
 import AreasProcesoPage from '../pages/mantenimiento/AreasProcesoPage';
 import ImportarPersonal from '../pages/importar-personal/ImportarPersonal';
 import AsistenciaInicio from '../pages/asistencia/AsistenciaInicio';
-import EnConstruccion from '../pages/asistencia/EnConstruccion';
+import VerAsistencia from '../pages/asistencia/VerAsistencia';
 import PlantillaProceso from '../pages/asistencia/PlantillaProceso';
 import AsistenciaAgr from '../pages/asistencia/AsistenciaAgr';
 import type { Usuario } from '../types/auth';
@@ -54,7 +54,7 @@ function AppRoutes({ usuario, onLogout }: Props) {
         <Route path="/asistencia" element={<AsistenciaInicio />} />
         <Route path="/asistencia/plantilla" element={<PlantillaProceso />} />
         <Route path="/asistencia/marcar" element={<AsistenciaAgr />} />
-        <Route path="/asistencia/ver" element={<EnConstruccion titulo="VER ASISTENCIA" />} />
+        <Route path="/asistencia/ver" element={<VerAsistencia />} />
       </Route>
     </Routes>
   );

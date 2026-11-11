@@ -120,3 +120,34 @@ export type PersonaBase = Pick<PersonaAsistencia, 'personalId' | 'dni' | 'nombre
 export interface UbicacionHoy extends Asignacion {
   estado: EstadoAsistencia | 'PLANTILLA';
 }
+
+
+// ---- VER ASISTENCIA (reporte por nave y día) ----
+export interface ReportePersona {
+  dni: string;
+  nombre: string;
+  area: string;
+  estado: EstadoAsistencia;
+  observacion: string;
+}
+
+export interface ReporteArea {
+  areaId: number;
+  area: string;
+  totalEstimado: number | null;
+  asistieron: number;
+  ausentes: number;
+  pendientes: number;
+  personas: ReportePersona[];
+}
+
+export interface ReporteAsistencia {
+  fecha: string;
+  naveId: number;
+  nave: string;
+  totalEstimado: number;
+  asistieron: number;
+  ausentes: number;
+  pendientes: number;
+  areas: ReporteArea[];
+}
